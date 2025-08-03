@@ -7,7 +7,7 @@ import { Control } from "react-hook-form";
 
 function InformationSection({ control }: { control: Control<Resume> }) {
   return (
-    <div className="grid grid-cols-2 self-start gap-y-1 gap-x-4">
+    <div className="grid grid-cols-2 place-items-start item-stretch gap-y-2 gap-x-4">
       <FormField
         control={control}
         name="name"

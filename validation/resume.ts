@@ -24,7 +24,6 @@ export const resumeSchema = z.object({
   project: z.array(
     z.object({
       name: z.string().min(1, "Project name is required"),
-      location: z.string().min(1, "Location is required"),
       startDate: z.string().min(1, "Start date is required"),
       endDate: z.string().min(1, "End date is required"),
       currentlyWorking: z.boolean().optional(),

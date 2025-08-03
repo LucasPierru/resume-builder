@@ -16,7 +16,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
     <div className="space-y-4">
       <h2 className="text-lg font-semibold">Certifications</h2>
       {fields.map((input, index) => (
-        <div key={input.id} className="grid grid-cols-2 gap-4 border border-border p-4 rounded-md">
+        <div
+          key={input.id}
+          className="grid grid-cols-2 place-items-start item-stretch gap-y-2 gap-x-4 border border-border p-4 rounded-md">
           <FormField
             control={control}
             name={`certifications.${index}.name`}

@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
-import DatePicker from "@/components/ui/date-picker";
+import { Checkbox } from "@/components/ui/checkbox";
+import DatePicker from "react-datepicker";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { defaultEducation, Resume } from "@/validation/resume";
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, TrashIcon } from "lucide-react";
 import React from "react";
@@ -17,7 +19,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
     <div className="space-y-4">
       <h2 className="text-lg font-semibold">Education</h2>
       {fields.map((input, index) => (
-        <div key={input.id} className="grid grid-cols-2 gap-4 border border-border p-4 rounded-md">
+        <div
+          key={input.id}
+          className="grid grid-cols-2 place-items-start item-stretch gap-y-2 gap-x-4 border border-border p-4 rounded-md">
           <FormField
             control={control}
             name={`education.${index}.institution`}
@@ -39,42 +43,6 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
                 <FormLabel>Location</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your education location" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name={`education.${index}.startDate`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Start Date</FormLabel>
-                <FormControl>
-                  <DatePicker
-                    value={field.value ? new Date(field.value) : undefined}
-                    onChange={(date) => {
-                      field.onChange(date ? date.toISOString() : "");
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name={`education.${index}.endDate`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>End Date</FormLabel>
-                <FormControl>
-                  <DatePicker
-                    value={field.value ? new Date(field.value) : undefined}
-                    onChange={(date) => {
-                      field.onChange(date ? date.toISOString() : "");
-                    }}
-                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,6 +74,82 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
               </FormItem>
             )}
           />
+          <FormField
+            control={control}
+            name={`education.${index}.startDate`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Start Date</FormLabel>
+                <FormControl>
+                  <DatePicker
+                    selected={field.value ? new Date(field.value) : new Date()}
+                    onChange={(date) => {
+                      field.onChange(date ? date.toISOString() : "");
+                    }}
+                    minDate={new Date("1900-01-01")}
+                    maxDate={new Date()}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                    wrapperClassName="datePicker"
+                    className={cn(
+                      "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                      "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                      "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                    )}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="w-full space-y-2">
+            <FormField
+              control={control}
+              name={`education.${index}.endDate`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>End Date</FormLabel>
+                  <FormControl>
+                    <DatePicker
+                      selected={field.value ? new Date(field.value) : new Date()}
+                      onChange={(date) => {
+                        field.onChange(date ? date.toISOString() : "");
+                      }}
+                      minDate={new Date("1900-01-01")}
+                      maxDate={new Date()}
+                      dateFormat="MM/yyyy"
+                      showMonthYearPicker
+                      className={cn(
+                        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                      )}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name={`education.${index}.currentlyWorking`}
+              render={({ field }) => (
+                <FormItem className="flex items-center gap-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={(checked) => {
+                        field.onChange(checked);
+                      }}
+                    />
+                  </FormControl>
+                  <FormLabel className="mb-0">Currently Working</FormLabel>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={control}
             name={`education.${index}.gpa`}

@@ -18,7 +18,7 @@ function BulletPoints({ fieldIndex, control, section }: BulletPointsProps) {
   });
 
   return (
-    <div className="col-span-full space-y-2">
+    <div className="col-span-full w-full space-y-2">
       <FormLabel>Bullet Point</FormLabel>
       {fields.map((input, index) => (
         <div key={input.id} className="flex items-center space-x-2">

@@ -74,7 +74,7 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div data-slot="form-item" className={cn("grid gap-2", className)} {...props} />
+      <div data-slot="form-item" className={cn("grid w-full", className)} {...props} />
     </FormItemContext.Provider>
   );
 }
@@ -86,7 +86,7 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn("data-[error=true]:text-destructive", className)}
+      className={cn("data-[error=true]:text-destructive mb-2", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -124,9 +124,9 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? "") : props.children;
 
-  /* if (!body) {
-    return null
-  } */
+  if (!body) {
+    return null;
+  }
 
   return (
     <p

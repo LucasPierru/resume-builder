@@ -44,7 +44,7 @@ function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
         <ExtracurricularsSection control={form.control} />
         <Separator className="my-6" />
         <Button type="button" onClick={form.handleSubmit(onSubmit)}>
-          Submit
+          Save
         </Button>
       </form>
     </Form>
