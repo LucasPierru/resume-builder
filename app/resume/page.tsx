@@ -2,6 +2,7 @@ import ResumeForm from "@/components/resume-form/resume-form";
 import { Resume } from "@/validation/resume";
 import ResumeViewer from "@/components/resume-viewer/resume-viewer";
 import React from "react";
+import ResumeParser from "@/components/resume-parser/resume-parser";
 
 function ResumePage() {
   const defaultValues = {
@@ -34,7 +35,7 @@ function ResumePage() {
         company: "XpertSource.com",
         jobTitle: "Software Engineer",
         location: "Montréal, Qc",
-        startDate: "2022-09-01",
+        startDate: "2022-09-16",
         endDate: "2024-03-16",
         currentlyWorking: false,
         bulletPoints: [
@@ -120,21 +121,21 @@ function ResumePage() {
       {
         institution: "École de Technologie Supérieure",
         location: "Montréal, Qc",
+        degree: "Master’s",
+        fieldOfStudy: "Software Engineering",
+        startDate: "2025-05-01",
+        endDate: "2028-05-01",
+        currentlyWorking: true,
+      },
+      {
+        institution: "École de Technologie Supérieure",
+        location: "Montréal, Qc",
         degree: "Bachelor’s of Engineering",
         fieldOfStudy: "Automated production",
         startDate: "2018-09-01",
         endDate: "2022-05-01",
         currentlyWorking: false,
         gpa: "3.7/4.3",
-      },
-      {
-        institution: "École de Technologie Supérieure",
-        location: "Montréal, Qc",
-        degree: "Master’s",
-        fieldOfStudy: "Software Engineering",
-        startDate: "2018-09-01",
-        endDate: "2022-05-01",
-        currentlyWorking: true,
       },
     ],
     certifications: [],
@@ -144,6 +145,7 @@ function ResumePage() {
   return (
     <div className="max-w-7xl mx-auto h-full mt-14 p-4">
       <h1 className="text-foreground font-semibold text-2xl mb-4">Resume</h1>
+      <ResumeParser />
       <ResumeViewer data={defaultMock} />
       <ResumeForm defaultValues={defaultMock} />
     </div>
