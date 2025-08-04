@@ -3,8 +3,17 @@ import ThemeToggle from "../theme-toggle/theme-toggle";
 import Link from "next/link";
 import { UserIcon } from "lucide-react";
 import NavLink from "../navlink/navlink";
+import LoginDialog from "../auth/login-dialog/login-dialog";
+import Logout from "../auth/logout/logout";
+import { createClient } from "@/utils/supabase/server";
 
-function Navbar() {
+async function Navbar() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const routes = [
     { name: "Home", path: "/" },
     { name: "Generation", path: "/job-generation" },
@@ -25,8 +34,9 @@ function Navbar() {
         <div className="flex items-center space-x-2">
           <ThemeToggle />
           <Link href="/profile">
-            <UserIcon className="h-6 w-6 inline-block ml-2" />
+            <UserIcon className="h-6 w-6 inline-block mx-2" />
           </Link>
+          {!user ? <LoginDialog /> : <Logout />}
         </div>
       </div>
     </header>

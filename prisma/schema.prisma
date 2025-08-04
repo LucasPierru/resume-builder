@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Will be in .env
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt @default(now())
+  balance      Int      @default(10000) // starting credit balance
+  baseResume   Resume?
+  applications Application[]
+}
+
+model Resume {
+  id        String   @id @default(uuid())
+  title     String   // optional label like “My Resume”
+  data      Json     // full form object stored here
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique     // 1 resume per user
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
+model Application {
+  id              String   @id @default(uuid())
+  jobTitle        String
+  company         String
+  jobDescription  String
+  tailoredResume  Json
+  user            User     @relation(fields: [userId], references: [id])
+  userId          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt @default(now())
+  status          String   @default("draft") // draft, submitted, accepted, rejected
+  feedback        String?  // optional feedback from employer
+  applicationDate DateTime @default(now())
+  comments        String?
+}
