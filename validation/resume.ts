@@ -13,7 +13,7 @@ export const resumeSchema = z.object({
       jobTitle: z.string().min(1, "Job title is required"),
       company: z.string().min(1, "Company name is required"),
       startDate: z.string().min(1, "Start date is required"),
-      endDate: z.string().min(1, "End date is required"),
+      endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
       location: z.string().min(1, "Location is required"),
       bulletPoints: z.array(z.object({
@@ -25,7 +25,7 @@ export const resumeSchema = z.object({
     z.object({
       name: z.string().min(1, "Project name is required"),
       startDate: z.string().min(1, "Start date is required"),
-      endDate: z.string().min(1, "End date is required"),
+      endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
       bulletPoints: z.array(z.object({
         text: z.string().min(1, "Bullet point cannot be empty"),
@@ -38,13 +38,12 @@ export const resumeSchema = z.object({
   education: z.array(
     z.object({
       institution: z.string().min(1, "Institution is required"),
-      location: z.string().min(1, "Location is required"),
+      location: z.string(),
       degree: z.string().min(1, "Degree is required"),
-      fieldOfStudy: z.string().min(1, "Field of study is required"),
-      startDate: z.string().min(1, "Start date is required"),
-      endDate: z.string().min(1, "End date is required"),
-      currentlyWorking: z.boolean().optional(),
       gpa: z.string().optional(),
+      startDate: z.string().min(1, "Start date is required"),
+      endDate: z.string(),
+      currentlyWorking: z.boolean().optional(),
     })
   ),
   certifications: z.array(
@@ -58,7 +57,7 @@ export const resumeSchema = z.object({
       name: z.string().min(1, "Extra-curricular activity name is required"),
       description: z.string().min(1, "Description is required"),
       startDate: z.string().min(1, "Start date is required"),
-      endDate: z.string().min(1, "End date is required"),
+      endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
       location: z.string().min(1, "Location is required"),
       bulletPoints: z.array(z.object({

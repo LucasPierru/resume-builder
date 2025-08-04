@@ -1,8 +1,9 @@
 "use client";
 
+import { formatDate } from "@/lib/utils";
 import { Resume } from "@/validation/resume";
 import { Document, Page, Text, View, StyleSheet, Font, Link } from "@react-pdf/renderer";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 Font.register({
   family: "Times New Roman",
@@ -81,7 +82,7 @@ const PDFDocument = ({ data }: { data: Resume }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          <Text style={{ fontSize: 28, fontWeight: "bold", marginBottom: 16 }}>{data.name}</Text>
+          <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 12 }}>{data.name}</Text>
           <Text>{data.location}</Text>
           <View style={styles.info}>
             <Link src={`mailto:${data.email}`} style={styles.small}>
@@ -93,11 +94,11 @@ const PDFDocument = ({ data }: { data: Resume }) => {
             </Link>
             <Text>|</Text>
             <Link src={data.github} style={styles.link}>
-              {data.github}
+              {data.github?.split("https://").pop()}
             </Link>
             <Text>|</Text>
             <Link src={data.linkedIn} style={styles.link}>
-              {data.linkedIn}
+              {data.linkedIn?.split("https://").pop()}
             </Link>
           </View>
         </View>
@@ -123,8 +124,7 @@ const PDFDocument = ({ data }: { data: Resume }) => {
                 </View>
                 <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
                   <Text style={styles.subheading}>
-                    {format(exp.startDate, "MMM yyyy")} -{" "}
-                    {exp.currentlyWorking ? "Present" : format(exp.endDate, "MMM yyyy")}
+                    {formatDate(exp.startDate)} - {exp.currentlyWorking ? "Present" : formatDate(exp.endDate)}
                   </Text>
                   <Text style={styles.location}>{exp.location}</Text>
                 </View>
@@ -146,8 +146,7 @@ const PDFDocument = ({ data }: { data: Resume }) => {
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.projectName}>{proj.name}</Text>
                 <Text style={styles.subheading}>
-                  {format(proj.startDate, "MMM yyyy")} -{" "}
-                  {proj.currentlyWorking ? "Present" : format(proj.endDate, "MMM yyyy")}
+                  {formatDate(proj.startDate)} - {proj.currentlyWorking ? "Present" : formatDate(proj.endDate)}
                 </Text>
               </View>
               <View>
@@ -167,14 +166,11 @@ const PDFDocument = ({ data }: { data: Resume }) => {
             <View key={i} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
               <View>
                 <Text style={styles.subheading}>{edu.institution}</Text>
-                <Text style={styles.jobTitle}>
-                  {edu.degree} in {edu.fieldOfStudy}
-                </Text>
+                <Text style={styles.jobTitle}>{edu.degree}</Text>
               </View>
               <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
                 <Text style={styles.subheading}>
-                  {format(edu.startDate, "MMM yyyy")} -{" "}
-                  {edu.currentlyWorking ? "Present" : format(edu.endDate, "MMM yyyy")}
+                  {formatDate(edu.startDate)} - {edu.currentlyWorking ? "Present" : formatDate(edu.endDate)}
                 </Text>
                 {edu.gpa && <Text style={styles.location}>GPA: {edu.gpa}</Text>}
               </View>

@@ -8,6 +8,7 @@ import { defaultEducation, Resume } from "@/validation/resume";
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, TrashIcon } from "lucide-react";
 import React from "react";
 import { Control, useFieldArray } from "react-hook-form";
+import { parseISO } from "date-fns";
 
 function ProjectSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move } = useFieldArray({
@@ -63,12 +64,12 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
           />
           <FormField
             control={control}
-            name={`education.${index}.fieldOfStudy`}
+            name={`education.${index}.gpa`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Field of Study</FormLabel>
+                <FormLabel>GPA</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your field of study" {...field} />
+                  <Input placeholder="Enter your GPA" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -82,7 +83,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
                 <FormLabel>Start Date</FormLabel>
                 <FormControl>
                   <DatePicker
-                    selected={field.value ? new Date(field.value) : new Date()}
+                    selected={field.value ? new Date(parseISO(field.value)) : new Date()}
                     onChange={(date) => {
                       field.onChange(date ? date.toISOString() : "");
                     }}
@@ -111,7 +112,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
                   <FormLabel>End Date</FormLabel>
                   <FormControl>
                     <DatePicker
-                      selected={field.value ? new Date(field.value) : new Date()}
+                      selected={field.value ? new Date(parseISO(field.value)) : new Date()}
                       onChange={(date) => {
                         field.onChange(date ? date.toISOString() : "");
                       }}
@@ -150,19 +151,6 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             />
           </div>
 
-          <FormField
-            control={control}
-            name={`education.${index}.gpa`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>GPA</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter your GPA" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className="col-start-1">
             <Button
               type="button"

@@ -13,18 +13,27 @@ import SkillsSection from "./skills-section/skills-section";
 import EducationSection from "./education-section/education-section";
 import CertificationSection from "./certifications-section/certification-section";
 import ExtracurricularsSection from "./extracurriculars-section/extracurriculars-section";
+import { useEffect } from "react";
+import { updateResume } from "@/requests/resume";
+import { useRouter } from "next/navigation";
 
 function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
+  const router = useRouter();
   const form = useForm<Resume>({
     resolver: zodResolver(resumeSchema),
     defaultValues,
   });
 
-  const onSubmit = (data: Resume) => {
-    console.log("Form submitted with data:", data);
+  const { reset } = form;
+
+  const onSubmit = async (data: Resume) => {
+    await updateResume(data);
+    router.refresh();
   };
 
-  console.log("Form state:", form.formState.errors);
+  useEffect(() => {
+    reset(defaultValues); // 👈 Reset form when defaultValues changes
+  }, [defaultValues, reset]);
 
   return (
     <Form {...form}>

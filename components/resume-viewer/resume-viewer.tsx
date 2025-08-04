@@ -30,7 +30,7 @@ export default function ResumeViewer({ data }: { data: Resume }) {
   };
 
   return (
-    <div className="w-full mt-4">
+    <div className="w-full my-4">
       <Button className="mb-4" variant="outline" onClick={handleTogglePreview}>
         {showPreview ? "Hide Preview" : "Show Preview"}
       </Button>

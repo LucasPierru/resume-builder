@@ -10,6 +10,7 @@ import { Control, useFieldArray } from "react-hook-form";
 import BulletPoints from "../bullet-points/bullet-points";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
+import { parseISO } from "date-fns";
 
 function ExperienceSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move } = useFieldArray({
@@ -58,7 +59,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
                 <FormLabel>Start Date</FormLabel>
                 <FormControl>
                   <DatePicker
-                    selected={field.value ? new Date(field.value) : new Date()}
+                    selected={field.value ? new Date(parseISO(field.value)) : new Date()}
                     onChange={(date) => {
                       field.onChange(date ? date.toISOString() : "");
                     }}
@@ -87,7 +88,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
                   <FormLabel>End Date</FormLabel>
                   <FormControl>
                     <DatePicker
-                      selected={field.value ? new Date(field.value) : new Date()}
+                      selected={field.value ? new Date(parseISO(field.value)) : new Date()}
                       onChange={(date) => {
                         field.onChange(date ? date.toISOString() : "");
                       }}

@@ -16,17 +16,20 @@ import RegisterForm from "../register-form/register-form";
 import { createClient } from "@/utils/supabase/client";
 
 function LoginDialog() {
+  const supabase = createClient();
   const [hasAccount, setHasAccount] = useState(true);
 
   const handleGoogleLogin = async () => {
     try {
-      const supabase = createClient();
-      await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `http://localhost:3000/auth/callback`,
+          redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
         },
       });
+      if (error) {
+        throw error;
+      }
     } catch (error) {
       console.error("Google login failed:", error);
     }

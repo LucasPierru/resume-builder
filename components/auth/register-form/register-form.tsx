@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createClient } from "@/utils/supabase/client";
 import { Register, registerSchema } from "@/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 function RegisterForm() {
+  const supabase = createClient();
   const form = useForm<Register>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -17,7 +19,26 @@ function RegisterForm() {
     },
   });
 
-  const onSubmit = (data: Register) => console.log(data);
+  const handleRegister = async (data: Register) => {
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            name: data.name,
+          },
+        },
+      });
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+
+  const onSubmit = async (data: Register) => await handleRegister(data);
 
   return (
     <Form {...form}>

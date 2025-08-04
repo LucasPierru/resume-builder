@@ -1,11 +1,19 @@
-import JobGeneration from "@/components/job-generation/job-generation";
+import JobGenerationForm from "@/components/job-generation/job-generation";
+import { getCurrentUser } from "@/requests/user";
+import { redirect } from "next/navigation";
 import React from "react";
 
-function JobGenerationPage() {
+async function JobGenerationPage() {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    redirect("/");
+  }
+
   return (
-    <div className="max-w-7xl mx-auto h-full mt-14 p-4">
+    <div className="max-w-5xl mx-auto h-full pt-18 pb-4 px-4">
       <h1 className="text-foreground font-semibold text-2xl mb-4">Job Generation</h1>
-      <JobGeneration />
+      <JobGenerationForm balance={currentUser.balance} />
     </div>
   );
 }

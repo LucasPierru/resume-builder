@@ -6,6 +6,7 @@ import NavLink from "../navlink/navlink";
 import LoginDialog from "../auth/login-dialog/login-dialog";
 import Logout from "../auth/logout/logout";
 import { createClient } from "@/utils/supabase/server";
+import ProfileDropdown from "../profile-dropdown/profile-dropdown";
 
 async function Navbar() {
   const supabase = await createClient();
@@ -33,10 +34,7 @@ async function Navbar() {
         </nav>
         <div className="flex items-center space-x-2">
           <ThemeToggle />
-          <Link href="/profile">
-            <UserIcon className="h-6 w-6 inline-block mx-2" />
-          </Link>
-          {!user ? <LoginDialog /> : <Logout />}
+          {user ? <ProfileDropdown /> : <LoginDialog />}
         </div>
       </div>
     </header>
