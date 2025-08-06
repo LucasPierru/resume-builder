@@ -1,9 +1,10 @@
 "use client";
 
-import { use, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CircleAlertIcon, LoaderCircleIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function ResumeParser({ balance }: { balance: number }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,8 +12,8 @@ export default function ResumeParser({ balance }: { balance: number }) {
   const [rawText, setRawText] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (!file) return;
     const formData = new FormData();
     setIsLoading(true);
@@ -22,6 +23,12 @@ export default function ResumeParser({ balance }: { balance: number }) {
       method: "POST",
       body: formData,
     });
+
+    if (!res.ok) {
+      toast.error("Failed to upload resume");
+      setIsLoading(false);
+      return;
+    }
 
     const { rawText } = await res.json();
     setRawText(rawText);
@@ -40,11 +47,12 @@ export default function ResumeParser({ balance }: { balance: number }) {
       },
     });
 
-    const { resume, error } = await res.json();
-    if (error) {
-      // Handle error
-      console.error("Error parsing resume:", error);
+    if (!res.ok) {
+      toast.error("Failed to parse resume");
+      setIsParsing(false);
+      return;
     }
+    toast.success("Resume parsed successfully");
     setRawText(null);
     setIsParsing(false);
     router.refresh();

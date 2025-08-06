@@ -1,13 +1,13 @@
 "use client";
 
 import { ReactNode } from "react";
-import Link, { LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 
-function NavLink({ children, ...otherProps }: { children: ReactNode } & LinkProps) {
+function NavLink({ children, href }: { children: ReactNode; href: string }) {
   const pathname = usePathname();
   return (
-    <Link className={`${pathname === otherProps.href ? "font-semibold" : ""}`} {...otherProps}>
+    <Link className={`${pathname === href ? "font-semibold" : ""}`} href={href}>
       {children}
     </Link>
   );

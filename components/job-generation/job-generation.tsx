@@ -7,8 +7,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { CircleAlertIcon } from "lucide-react";
+import { Resume } from "@/validation/resume";
+import { calculateATSScore } from "@/actions/ats";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-function JobGenerationForm({ balance }: { balance: number }) {
+function JobGenerationForm({ balance, resume }: { balance: number; resume: Resume | null }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<JobGeneration>({
     resolver: zodResolver(jobGenerationSchema),
     defaultValues: {
@@ -16,8 +23,35 @@ function JobGenerationForm({ balance }: { balance: number }) {
     },
   });
 
-  const onSubmit = (data: JobGeneration) => {
-    console.log("Form submitted with data:", data);
+  const parseResume = async (jobDescription: string, baseResume: string) => {
+    setIsLoading(true);
+
+    const res = await fetch("/api/adapt-resume", {
+      method: "POST",
+      body: JSON.stringify({ jobDescription, baseResume }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      toast.error("Failed to parse resume");
+      setIsLoading(false);
+      return;
+    }
+    toast.success("Resume parsed successfully");
+    setIsLoading(false);
+    router.refresh();
+    return res.json();
+  };
+
+  const onSubmit = async (data: JobGeneration) => {
+    const { updatedResume } = await parseResume(data.content, resume ? JSON.stringify(resume) : "");
+    const results = await calculateATSScore({
+      jobDescription: data.content,
+      resume: updatedResume || ({} as Resume),
+    });
+    console.log("Form submitted with data:", data, results);
   };
 
   const lowCreditsBalance = 5000; // Define your low credits balance threshold

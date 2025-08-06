@@ -1,12 +1,10 @@
 import React from "react";
 import ThemeToggle from "../theme-toggle/theme-toggle";
-import Link from "next/link";
-import { UserIcon } from "lucide-react";
 import NavLink from "../navlink/navlink";
 import LoginDialog from "../auth/login-dialog/login-dialog";
-import Logout from "../auth/logout/logout";
 import { createClient } from "@/utils/supabase/server";
 import ProfileDropdown from "../profile-dropdown/profile-dropdown";
+import LocaleToggle from "../locale-toggle/locale-toggle";
 
 async function Navbar() {
   const supabase = await createClient();
@@ -35,6 +33,7 @@ async function Navbar() {
         <div className="flex items-center space-x-2">
           <ThemeToggle />
           {user ? <ProfileDropdown /> : <LoginDialog />}
+          <LocaleToggle />
         </div>
       </div>
     </header>
