@@ -1,1 +1,41 @@
-{}
+{
+  "Navbar": {
+    "home": "Accueil",
+    "generation": "Génération",
+    "resume": "CV",
+    "my-account": "Mon Compte",
+    "profile": "Profil",
+    "billing": "Facturation",
+    "add-credits": "Ajouter des Crédits",
+    "logout": "Déconnexion"
+  },
+  "Login": {
+    "login": "Connexion",
+    "continue-with": "Continuer avec",
+    "choose-method": "Choisissez une méthode pour continuer",
+    "or": "OU",
+    "dont-have-account": "Vous n'avez pas de compte? ",
+    "already-have-account": "Vous avez déjà un compte? ",
+    "sign-up": "S'inscrire",
+    "sign-in": "Se connecter",
+    "email": "Email",
+    "email-placeholder": "Entrez votre email",
+    "password": "Mot de passe",
+    "password-placeholder": "Entrez votre mot de passe",
+    "full-name": "Nom complet",
+    "full-name-placeholder": "Entrez votre nom complet",
+    "confirm-password": "Confirmer le mot de passe",
+    "confirm-password-placeholder": "Confirmez votre mot de passe"
+  },
+  "Errors": {
+    "invalid-email": "Adresse email invalide",
+    "password-too-short": "Le mot de passe doit contenir au moins 6 caractères",
+    "full-name-required": "Le nom complet est requis",
+    "confirm-password-too-short": "La confirmation du mot de passe est requise",
+    "password-mismatch": "Les mots de passe ne correspondent pas",
+    "field-required": "Ce champ est requis",
+    "invalid-link": "URL invalide",
+    "invalid-phone": "Numéro de téléphone invalide",
+    "at-least-one-bullet-point": "Au moins un point important est requis"
+  }
+}

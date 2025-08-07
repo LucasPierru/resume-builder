@@ -14,7 +14,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt @default(now())
   balance      Int      @default(10000) // starting credit balance
-  baseResume   Resume?
+  resumes      Resume[]
   applications Application[]
 }
 
@@ -23,9 +23,12 @@ model Resume {
   title     String   // optional label like “My Resume”
   data      Json     // full form object stored here
   user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique     // 1 resume per user
+  userId    String        // 1 resume per user
+  language  String   @default("en") // default language
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
+
+  @@unique([userId, language])
 }
 
 model Application {

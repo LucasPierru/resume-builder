@@ -1,1 +1,41 @@
-{}
+{
+  "Navbar": {
+    "home": "Home",
+    "generation": "Generation",
+    "resume": "Resume",
+    "my-account": "My Account",
+    "profile": "Profile",
+    "billing": "Billing",
+    "add-credits": "Add Credits",
+    "logout": "Logout"
+  },
+  "Login": {
+    "login": "Login",
+    "continue-with": "Continue with",
+    "choose-method": "Choose a method to continue",
+    "or": "OR",
+    "dont-have-account": "Don't have an account? ",
+    "already-have-account": "Already have an account? ",
+    "sign-up": "Sign up",
+    "sign-in": "Sign in",
+    "email": "Email",
+    "email-placeholder": "Enter your email",
+    "password": "Password",
+    "password-placeholder": "Enter your password",
+    "full-name": "Full Name",
+    "full-name-placeholder": "Enter your full name",
+    "confirm-password": "Confirm Password",
+    "confirm-password-placeholder": "Confirm your password"
+  },
+  "Errors": {
+    "invalid-email": "Invalid email address",
+    "password-too-short": "Password must be at least 6 characters long",
+    "full-name-required": "Full name is required",
+    "confirm-password-too-short": "Confirm password is required",
+    "password-mismatch": "Passwords do not match",
+    "field-required": "This field is required",
+    "invalid-link": "Invalid URL",
+    "invalid-phone": "Invalid phone number",
+    "at-least-one-bullet-point": "At least one bullet point is required"
+  }
+}

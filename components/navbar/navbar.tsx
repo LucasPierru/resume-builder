@@ -5,18 +5,20 @@ import LoginDialog from "../auth/login-dialog/login-dialog";
 import { createClient } from "@/utils/supabase/server";
 import ProfileDropdown from "../profile-dropdown/profile-dropdown";
 import LocaleToggle from "../locale-toggle/locale-toggle";
+import { getTranslations } from "next-intl/server";
 
 async function Navbar() {
   const supabase = await createClient();
+  const t = await getTranslations("Navbar");
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   const routes = [
-    { name: "Home", path: "/" },
-    { name: "Generation", path: "/job-generation" },
-    { name: "Resume", path: "/resume" },
+    { name: t("home"), path: "/" },
+    { name: t("generation"), path: "/job-generation" },
+    { name: t("resume"), path: "/resume" },
   ];
 
   return (

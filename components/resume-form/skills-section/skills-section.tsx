@@ -4,6 +4,7 @@ import { Resume } from "@/validation/resume";
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 
 function SkillsSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove } = useFieldArray({
@@ -11,6 +12,7 @@ function SkillsSection({ control }: { control: Control<Resume> }) {
     name: `skills`,
   });
   const inputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("Resume");
 
   const handleAddSkill = () => {
     const skillValue = inputRef.current?.value.trim();
@@ -22,11 +24,11 @@ function SkillsSection({ control }: { control: Control<Resume> }) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Skills</h2>
+      <h2 className="text-lg font-semibold">{t("skills")}</h2>
       <div className="flex items-center space-x-2">
         <Input
           ref={inputRef}
-          placeholder="Enter a skill"
+          placeholder={t("skill-placeholder")}
           className="w-fit"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -35,7 +37,7 @@ function SkillsSection({ control }: { control: Control<Resume> }) {
           }}
         />
         <Button type="button" onClick={handleAddSkill}>
-          Add Skill
+          {t("add-skill")}
         </Button>
       </div>
       <div className="flex flex-wrap gap-2">

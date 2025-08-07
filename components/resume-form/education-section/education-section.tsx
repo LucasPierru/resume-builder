@@ -9,16 +9,18 @@ import { ArrowDownIcon, ArrowUpIcon, PlusIcon, TrashIcon } from "lucide-react";
 import React from "react";
 import { Control, useFieldArray } from "react-hook-form";
 import { parseISO } from "date-fns";
+import { useTranslations } from "next-intl";
 
 function ProjectSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "education", // unique name for your Field Array
   });
+  const t = useTranslations("Resume");
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Education</h2>
+      <h2 className="text-lg font-semibold">{t("education")}</h2>
       {fields.map((input, index) => (
         <div
           key={input.id}
@@ -28,9 +30,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`education.${index}.institution`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Institution Name</FormLabel>
+                <FormLabel>{t("institution")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your institution name" {...field} />
+                  <Input placeholder={t("institution-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -41,9 +43,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`education.${index}.location`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Location</FormLabel>
+                <FormLabel>{t("location")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your education location" {...field} />
+                  <Input placeholder={t("location-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -54,9 +56,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`education.${index}.degree`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Degree</FormLabel>
+                <FormLabel>{t("degree")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your degree" {...field} />
+                  <Input placeholder={t("degree-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -67,9 +69,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`education.${index}.gpa`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>GPA</FormLabel>
+                <FormLabel>{t("gpa")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your GPA" {...field} />
+                  <Input placeholder={t("gpa-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -80,7 +82,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`education.${index}.startDate`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{t("start-date")}</FormLabel>
                 <FormControl>
                   <DatePicker
                     selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -109,7 +111,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
               name={`education.${index}.endDate`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Date</FormLabel>
+                  <FormLabel>{t("end-date")}</FormLabel>
                   <FormControl>
                     <DatePicker
                       selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -144,7 +146,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
                       }}
                     />
                   </FormControl>
-                  <FormLabel className="mb-0">Currently Working</FormLabel>
+                  <FormLabel className="mb-0">{t("currently-studying")}</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
@@ -170,13 +172,13 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             </Button>
           </div>
           <Button type="button" variant="destructive" onClick={() => remove(index)} className="justify-self-end w-fit">
-            <TrashIcon /> Remove Education
+            <TrashIcon /> {t("remove-education")}
           </Button>
         </div>
       ))}
       <Button type="button" onClick={() => append(defaultEducation)} className="w-fit">
         <PlusIcon />
-        Add Education
+        {t("add-education")}
       </Button>
     </div>
   );

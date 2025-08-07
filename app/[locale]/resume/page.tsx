@@ -5,16 +5,21 @@ import ResumeParser from "@/components/resume-parser/resume-parser";
 import { getCurrentUser } from "@/requests/user";
 import { redirect } from "next/navigation";
 import { Separator } from "@radix-ui/react-separator";
-import { getResume } from "@/requests/resume";
+import { getResume, getResumesLanguages } from "@/requests/resume";
+import { getTranslations } from "next-intl/server";
+import { Locale } from "@/types/types";
 
-async function ResumePage() {
-  const currentUser = await getCurrentUser();
+async function ResumePage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const currentUser = await getCurrentUser(locale);
+  const t = await getTranslations("Resume");
 
   if (!currentUser) {
     redirect("/");
   }
 
-  const resume = await getResume();
+  const resume = await getResume(locale);
+  const resumeLanguages = await getResumesLanguages();
 
   const defaultValues = {
     name: resume?.name || "",
@@ -34,8 +39,8 @@ async function ResumePage() {
 
   return (
     <div className="max-w-5xl mx-auto h-full pt-18 pb-4 px-4">
-      <h1 className="text-foreground font-semibold text-2xl mb-4">Resume</h1>
-      <ResumeParser balance={currentUser?.balance} />
+      <h1 className="text-foreground font-semibold text-2xl mb-4">{t("resume")}</h1>
+      <ResumeParser balance={currentUser?.balance} resumeLanguages={resumeLanguages} />
       <Separator className="h-[1px] bg-border my-6" />
       <ResumeViewer data={defaultValues} />
       <ResumeForm defaultValues={defaultValues} />

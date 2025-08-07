@@ -9,8 +9,11 @@ import {
 } from "@/components/ui/menubar";
 import { UserIcon } from "lucide-react";
 import Logout from "../auth/logout/logout";
+import { getTranslations } from "next-intl/server";
 
-function ProfileDropdown() {
+async function ProfileDropdown() {
+  const t = await getTranslations("Navbar");
+
   return (
     <Menubar className="p-0 rounded-sm border">
       <MenubarMenu>
@@ -18,11 +21,11 @@ function ProfileDropdown() {
           <UserIcon className="h-8 w-8" />
         </MenubarTrigger>
         <MenubarContent align="end">
-          <MenubarLabel>My Account</MenubarLabel>
+          <MenubarLabel>{t("my-account")}</MenubarLabel>
           <MenubarSeparator />
-          <MenubarItem>Profile</MenubarItem>
-          <MenubarItem>Billing</MenubarItem>
-          <MenubarItem>Add credits</MenubarItem>
+          <MenubarItem>{t("profile")}</MenubarItem>
+          <MenubarItem>{t("billing")}</MenubarItem>
+          <MenubarItem>{t("add-credits")}</MenubarItem>
           <MenubarItem>
             <Logout />
           </MenubarItem>

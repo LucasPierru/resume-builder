@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
 import { Login, loginSchema } from "@/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
 function LoginForm() {
+  const t = useTranslations("Login");
   const supabase = createClient();
   const form = useForm<Login>({
     resolver: zodResolver(loginSchema),
@@ -42,9 +44,9 @@ function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("email")}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" {...field} />
+                <Input placeholder={t("email-placeholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -55,16 +57,16 @@ function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("password")}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" type="password" {...field} />
+                <Input placeholder={t("password-placeholder")} type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button type="submit" className="w-full mt-4">
-          Sign in
+          {t("sign-in")}
         </Button>
       </form>
     </Form>

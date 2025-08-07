@@ -53,7 +53,7 @@ ${jobDescription}
   try {
     const updatedResume = JSON.parse(cleaned);
     return NextResponse.json({ updatedResume });
-  } catch (e) {
+  } catch (error) {
     return NextResponse.json(
       { error: "Failed to parse the updated resume JSON.", raw: cleaned },
       { status: 400 }

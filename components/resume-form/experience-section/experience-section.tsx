@@ -5,22 +5,24 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { defaultExperience, Resume } from "@/validation/resume";
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, TrashIcon } from "lucide-react";
-import React from "react";
+import React, { use } from "react";
 import { Control, useFieldArray } from "react-hook-form";
 import BulletPoints from "../bullet-points/bullet-points";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { parseISO } from "date-fns";
+import { useTranslations } from "next-intl";
 
 function ExperienceSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "experience", // unique name for your Field Array
   });
+  const t = useTranslations("Resume");
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Work Experience</h2>
+      <h2 className="text-lg font-semibold">{t("work-experience")}</h2>
       {fields.map((input, index) => (
         <div
           key={input.id}
@@ -30,9 +32,9 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`experience.${index}.company`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Company</FormLabel>
+                <FormLabel>{t("company")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your company name" {...field} />
+                  <Input placeholder={t("company-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -43,9 +45,9 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`experience.${index}.jobTitle`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Job Title</FormLabel>
+                <FormLabel>{t("job-title")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your job title" {...field} />
+                  <Input placeholder={t("job-title-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -56,7 +58,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`experience.${index}.startDate`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{t("start-date")}</FormLabel>
                 <FormControl>
                   <DatePicker
                     selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -85,7 +87,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
               name={`experience.${index}.endDate`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Date</FormLabel>
+                  <FormLabel>{t("end-date")}</FormLabel>
                   <FormControl>
                     <DatePicker
                       selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -120,7 +122,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
                       }}
                     />
                   </FormControl>
-                  <FormLabel className="mb-0">Currently Working</FormLabel>
+                  <FormLabel className="mb-0">{t("currently-working")}</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
@@ -131,9 +133,9 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`experience.${index}.location`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Location</FormLabel>
+                <FormLabel>{t("location")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your location" {...field} />
+                  <Input placeholder={t("location-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -159,13 +161,13 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             </Button>
           </div>
           <Button type="button" variant="destructive" onClick={() => remove(index)} className="justify-self-end w-fit">
-            <TrashIcon /> Remove Work Experience
+            <TrashIcon /> {t("remove-work-experience")}
           </Button>
         </div>
       ))}
       <Button type="button" onClick={() => append(defaultExperience)} className="w-fit">
         <PlusIcon />
-        Add Experience
+        {t("add-work-experience")}
       </Button>
     </div>
   );

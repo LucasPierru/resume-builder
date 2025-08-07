@@ -1,0 +1,12 @@
+{
+  "Generation": {
+    "job-description": "Job Description",
+    "job-description-placeholder": "Enter the job description",
+    "generate-resume": "Generate Resume",
+    "characters": "Characters",
+    "credits-remaining": "Credits Remaining",
+    "resume-generated": "Resume generated successfully",
+    "resume-generation-failed": "Failed to generate resume, please try again later",
+    "low-credits": "You have low credits, please add more to continue"
+  }
+}

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
     if (!user) return Response.json({ resume: null, error: "Not authenticated" }, { status: 401 });
 
-    const { rawText } = await req.json();
+    const { rawText, locale } = await req.json();
     const cost = rawText.length; // Assuming 1 credit per character
 
     // Fetch current credit balance
@@ -128,7 +128,8 @@ export async function POST(req: NextRequest) {
 - Make sure skills is an array of objects with the shape { "text": "..." } — NOT a comma-separated string.
 - Do not return anything before or after the JSON. Only return valid JSON.
 - Double-check that your response is a **valid and parsable JSON object**.
-- If a summary is not present, generate one that fits the resume.`;
+- If a summary is not present, generate one that fits the resume.
+- Respect the original language of the resume, do not translate it.`;
 
 
     const completion = await openai.chat.completions.create({
@@ -141,7 +142,7 @@ export async function POST(req: NextRequest) {
     const structuredData = JSON.parse(completion.choices[0].message.content || '{}');
 
     // console.log({ structuredData });
-    await updateResume(structuredData)
+    await updateResume(structuredData, locale)
     revalidatePath('/resume');
 
     return Response.json({ resume: structuredData, error: null })

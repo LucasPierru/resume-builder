@@ -2,10 +2,13 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Resume } from "@/validation/resume";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { Control } from "react-hook-form";
 
 function InformationSection({ control }: { control: Control<Resume> }) {
+  const t = useTranslations("Resume");
+
   return (
     <div className="grid grid-cols-2 place-items-start item-stretch gap-y-2 gap-x-4">
       <FormField
@@ -13,9 +16,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>{t("name")}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter your name" {...field} />
+              <Input placeholder={t("name-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -26,9 +29,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>E-mail</FormLabel>
+            <FormLabel>{t("email")}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter your email" {...field} />
+              <Input placeholder={t("email-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -39,9 +42,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="linkedIn"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>LinkedIn</FormLabel>
+            <FormLabel>{t("linkedIn")}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter your LinkedIn profile URL" {...field} />
+              <Input placeholder={t("linkedIn-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -52,9 +55,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="phone"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Phone</FormLabel>
+            <FormLabel>{t("phone")}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter your phone number" {...field} />
+              <Input placeholder={t("phone-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -65,9 +68,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="github"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>GitHub</FormLabel>
+            <FormLabel>{t("github")}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter your GitHub profile URL" {...field} />
+              <Input placeholder={t("github-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -78,9 +81,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="location"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Location</FormLabel>
+            <FormLabel>{t("location")}</FormLabel>
             <FormControl>
-              <Input placeholder="Enter your location" {...field} />
+              <Input placeholder={t("location-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -91,9 +94,9 @@ function InformationSection({ control }: { control: Control<Resume> }) {
         name="summary"
         render={({ field }) => (
           <FormItem className="col-span-2">
-            <FormLabel>Summary</FormLabel>
+            <FormLabel>{t("summary")}</FormLabel>
             <FormControl>
-              <Textarea className="min-h-24" placeholder="Enter your summary" {...field} />
+              <Textarea className="min-h-24" placeholder={t("summary-placeholder")} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

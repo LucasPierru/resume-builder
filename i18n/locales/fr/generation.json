@@ -1,0 +1,12 @@
+{
+  "Generation": {
+    "job-description": "Description de l'emploi",
+    "job-description-placeholder": "Entrez la description de l'emploi",
+    "generate-resume": "Générer le CV",
+    "characters": "Caractères",
+    "credits-remaining": "Crédits restants",
+    "resume-generated": "CV généré avec succès",
+    "resume-generation-failed": "Échec de la génération du CV, veuillez réessayer plus tard",
+    "low-credits": "Vous avez peu de crédits, veuillez en ajouter davantage pour continuer"
+  }
+}

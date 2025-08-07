@@ -14,8 +14,10 @@ import Image from "next/image";
 import LoginForm from "../login-form/login-form";
 import RegisterForm from "../register-form/register-form";
 import { createClient } from "@/utils/supabase/client";
+import { useTranslations } from "next-intl";
 
 function LoginDialog() {
+  const t = useTranslations("Login");
   const supabase = createClient();
   const [hasAccount, setHasAccount] = useState(true);
 
@@ -38,23 +40,23 @@ function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Login</Button>
+        <Button variant="outline">{t("login")}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="items-center">
-          <DialogTitle>Continue with</DialogTitle>
-          <DialogDescription className="text-center">Choose a method to continue</DialogDescription>
+          <DialogTitle>{t("continue-with")}</DialogTitle>
+          <DialogDescription className="text-center">{t("choose-method")}</DialogDescription>
         </DialogHeader>
         {hasAccount ? <LoginForm /> : <RegisterForm />}
-        <span className="text-center">OR</span>
+        <span className="text-center">{t("or")}</span>
         <Button onClick={handleGoogleLogin}>
           <Image src="/google.svg" alt="Google logo" width={16} height={16} />
           Google
         </Button>
         <span className="text-center">
-          {hasAccount ? "Don't have an account? " : "Already have an account? "}
+          {hasAccount ? t("dont-have-account") : t("already-have-account")}
           <button className="cursor-pointer text-blue-500" onClick={() => setHasAccount((hasAccount) => !hasAccount)}>
-            {hasAccount ? "Sign up" : "Sign in"}
+            {hasAccount ? t("sign-up") : t("sign-in")}
           </button>
         </span>
       </DialogContent>

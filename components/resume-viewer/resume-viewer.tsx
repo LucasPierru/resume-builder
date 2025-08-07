@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { Button } from "../ui/button";
 import { pdf } from "@react-pdf/renderer";
 import PDFDocument from "./pdf-viewer/pdf-document";
+import { useTranslations } from "next-intl";
 
 const PDFViewer = dynamic(() => import("./pdf-viewer/pdf-viewer"), {
   ssr: false,
@@ -13,6 +14,7 @@ const PDFViewer = dynamic(() => import("./pdf-viewer/pdf-viewer"), {
 
 export default function ResumeViewer({ data }: { data: Resume }) {
   const [showPreview, setShowPreview] = useState(false);
+  const t = useTranslations("Resume");
 
   const handleTogglePreview = () => {
     setShowPreview((prev) => !prev);
@@ -32,12 +34,12 @@ export default function ResumeViewer({ data }: { data: Resume }) {
   return (
     <div className="w-full my-4">
       <Button className="mb-4" variant="outline" onClick={handleTogglePreview}>
-        {showPreview ? "Hide Preview" : "Show Preview"}
+        {showPreview ? t("hide-preview") : t("show-preview")}
       </Button>
       <br />
       {showPreview && (
         <Button className="mb-4" onClick={handleDownload}>
-          Download as PDF
+          {t("download-pdf")}
         </Button>
       )}
       {showPreview && <PDFViewer data={data} />}

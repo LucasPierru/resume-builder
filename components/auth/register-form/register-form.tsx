@@ -4,10 +4,12 @@ import { Input } from "@/components/ui/input";
 import { createClient } from "@/utils/supabase/client";
 import { Register, registerSchema } from "@/validation/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { useForm } from "react-hook-form";
 
 function RegisterForm() {
+  const t = useTranslations("Login");
   const supabase = createClient();
   const form = useForm<Register>({
     resolver: zodResolver(registerSchema),
@@ -48,9 +50,9 @@ function RegisterForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>{t("full-name")}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your full name" {...field} />
+                <Input placeholder={t("full-name-placeholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,9 +63,9 @@ function RegisterForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("email")}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" {...field} />
+                <Input placeholder={t("email-placeholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,9 +76,9 @@ function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("password")}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" type="password" {...field} />
+                <Input placeholder={t("password-placeholder")} type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,16 +89,16 @@ function RegisterForm() {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm password</FormLabel>
+              <FormLabel>{t("confirm-password")}</FormLabel>
               <FormControl>
-                <Input placeholder="Confirm your password" type="password" {...field} />
+                <Input placeholder={t("confirm-password-placeholder")} type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button type="submit" className="w-full mt-4">
-          Sign up
+          {t("sign-up")}
         </Button>
       </form>
     </Form>

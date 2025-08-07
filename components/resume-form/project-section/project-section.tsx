@@ -10,16 +10,18 @@ import BulletPoints from "../bullet-points/bullet-points";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { parseISO } from "date-fns";
+import { useTranslations } from "next-intl";
 
 function ProjectSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "project", // unique name for your Field Array
   });
+  const t = useTranslations("Resume");
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Projects</h2>
+      <h2 className="text-lg font-semibold">{t("projects")}</h2>
       {fields.map((input, index) => (
         <div
           key={input.id}
@@ -29,9 +31,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`project.${index}.name`}
             render={({ field }) => (
               <FormItem className="col-span-2">
-                <FormLabel>Project Name</FormLabel>
+                <FormLabel>{t("project-name")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your project name" {...field} />
+                  <Input placeholder={t("project-name-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -42,7 +44,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`project.${index}.startDate`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{t("start-date")}</FormLabel>
                 <FormControl>
                   <DatePicker
                     selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -71,7 +73,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
               name={`project.${index}.endDate`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Date</FormLabel>
+                  <FormLabel>{t("end-date")}</FormLabel>
                   <FormControl>
                     <DatePicker
                       selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -106,7 +108,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
                       }}
                     />
                   </FormControl>
-                  <FormLabel className="mb-0">Currently Working</FormLabel>
+                  <FormLabel className="mb-0">{t("currently-working")}</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
@@ -132,13 +134,13 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             </Button>
           </div>
           <Button type="button" variant="destructive" onClick={() => remove(index)} className="justify-self-end w-fit">
-            <TrashIcon /> Remove Project
+            <TrashIcon /> {t("remove-project")}
           </Button>
         </div>
       ))}
       <Button type="button" onClick={() => append(defaultProject)} className="w-fit">
         <PlusIcon />
-        Add Project
+        {t("add-project")}
       </Button>
     </div>
   );

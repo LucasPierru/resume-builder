@@ -10,16 +10,18 @@ import BulletPoints from "../bullet-points/bullet-points";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { parseISO } from "date-fns";
+import { useTranslations } from "next-intl";
 
 function ExperienceSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "extracurriculars", // unique name for your Field Array
   });
+  const t = useTranslations("Resume");
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Extracurricular Activities</h2>
+      <h2 className="text-lg font-semibold">{t("extracurriculars")}</h2>
       {fields.map((input, index) => (
         <div
           key={input.id}
@@ -29,9 +31,9 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`extracurriculars.${index}.name`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Activity</FormLabel>
+                <FormLabel>{t("activity")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your activity name" {...field} />
+                  <Input placeholder={t("activity-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -42,9 +44,9 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`extracurriculars.${index}.description`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>{t("activity-description")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter a description" {...field} />
+                  <Input placeholder={t("activity-description-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -55,7 +57,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`extracurriculars.${index}.startDate`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>{t("start-date")}</FormLabel>
                 <FormControl>
                   <DatePicker
                     selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -84,7 +86,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
               name={`extracurriculars.${index}.endDate`}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>End Date</FormLabel>
+                  <FormLabel>{t("end-date")}</FormLabel>
                   <FormControl>
                     <DatePicker
                       selected={field.value ? new Date(parseISO(field.value)) : new Date()}
@@ -119,7 +121,7 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
                       }}
                     />
                   </FormControl>
-                  <FormLabel className="mb-0">Currently Working</FormLabel>
+                  <FormLabel className="mb-0">{t("currently-working")}</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
@@ -130,9 +132,9 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             name={`extracurriculars.${index}.location`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Location</FormLabel>
+                <FormLabel>{t("location")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your location" {...field} />
+                  <Input placeholder={t("location-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -158,13 +160,13 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
             </Button>
           </div>
           <Button type="button" variant="destructive" onClick={() => remove(index)} className="justify-self-end w-fit">
-            <TrashIcon /> Remove Extracurricular
+            <TrashIcon /> {t("remove-activity")}
           </Button>
         </div>
       ))}
       <Button type="button" onClick={() => append(defaultExtracurricular)} className="w-fit">
         <PlusIcon />
-        Add Activity
+        {t("add-activity")}
       </Button>
     </div>
   );

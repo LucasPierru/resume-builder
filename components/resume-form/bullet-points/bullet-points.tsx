@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Control, useFieldArray } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslations } from "next-intl";
 
 type BulletPointsProps = {
   fieldIndex: number;
@@ -16,10 +17,11 @@ function BulletPoints({ fieldIndex, control, section }: BulletPointsProps) {
   const { fields, append, remove, move } = useFieldArray({
     name: `${section}.${fieldIndex}.bulletPoints`,
   });
+  const t = useTranslations("Resume");
 
   return (
     <div className="col-span-full w-full space-y-2">
-      <FormLabel>Bullet Point</FormLabel>
+      <FormLabel>{t("bullet-points")}</FormLabel>
       {fields.map((input, index) => (
         <div key={input.id} className="flex items-center space-x-2">
           <FormField
@@ -28,7 +30,7 @@ function BulletPoints({ fieldIndex, control, section }: BulletPointsProps) {
             render={({ field }) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <Textarea className="min-h-20" placeholder="Tell us about what you did" {...field} />
+                  <Textarea className="min-h-20" placeholder={t("bullet-point-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -62,7 +64,7 @@ function BulletPoints({ fieldIndex, control, section }: BulletPointsProps) {
         }}
         className="w-fit mt-2">
         <PlusIcon />
-        Add Bullet Point
+        {t("add-bullet-point")}
       </Button>
     </div>
   );

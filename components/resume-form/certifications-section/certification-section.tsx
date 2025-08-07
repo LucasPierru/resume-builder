@@ -3,6 +3,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { defaultCertification, Resume } from "@/validation/resume";
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, TrashIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { Control, useFieldArray } from "react-hook-form";
 
@@ -11,10 +12,11 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "certifications", // unique name for your Field Array
   });
+  const t = useTranslations("Resume");
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold">Certifications</h2>
+      <h2 className="text-lg font-semibold">{t("certifications")}</h2>
       {fields.map((input, index) => (
         <div
           key={input.id}
@@ -24,9 +26,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`certifications.${index}.name`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Certification Name</FormLabel>
+                <FormLabel>{t("certification-name")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your certification name" {...field} />
+                  <Input placeholder={t("certification-name-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -37,9 +39,9 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             name={`certifications.${index}.description`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>{t("certification-description")}</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your certification description" {...field} />
+                  <Input placeholder={t("certification-description-placeholder")} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,13 +66,13 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             </Button>
           </div>
           <Button type="button" variant="destructive" onClick={() => remove(index)} className="justify-self-end w-fit">
-            <TrashIcon /> Remove Certification
+            <TrashIcon /> {t("remove-certification")}
           </Button>
         </div>
       ))}
       <Button type="button" onClick={() => append(defaultCertification)} className="w-fit">
         <PlusIcon />
-        Add Certification
+        {t("add-certification")}
       </Button>
     </div>
   );

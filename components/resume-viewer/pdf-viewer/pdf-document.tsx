@@ -3,10 +3,10 @@
 import { formatDate } from "@/lib/utils";
 import { Resume } from "@/validation/resume";
 import { Document, Page, Text, View, StyleSheet, Font, Link } from "@react-pdf/renderer";
-import { format, parseISO } from "date-fns";
 
 Font.register({
   family: "Times New Roman",
+
   fonts: [
     { src: "/fonts/times.ttf", fontWeight: "normal" }, // fallback to system
     { src: "/fonts/times-bold.ttf", fontWeight: "bold" },

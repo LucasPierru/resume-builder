@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { LogOutIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 function Logout() {
+  const t = useTranslations("Navbar");
   const supabase = createClient();
   const router = useRouter();
 
@@ -21,7 +23,7 @@ function Logout() {
   return (
     <Button onClick={handleLogout} size="sm" variant="ghost" className="w-full">
       <LogOutIcon className="text-foreground mr-2" />
-      Logout
+      {t("logout")}
     </Button>
   );
 }

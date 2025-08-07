@@ -18,6 +18,8 @@ import CertificationSection from "./certifications-section/certification-section
 import ExtracurricularsSection from "./extracurriculars-section/extracurriculars-section";
 import { Separator } from "../ui/separator";
 import { updateResume } from "@/requests/resume";
+import { useTranslations, useLocale } from "next-intl";
+import { Locale } from "@/types/types";
 
 function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,18 +28,20 @@ function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
     resolver: zodResolver(resumeSchema),
     defaultValues,
   });
+  const t = useTranslations("Resume");
+  const locale = useLocale() as Locale;
 
   const { reset } = form;
 
   const onSubmit = async (data: Resume) => {
     setIsLoading(true);
-    const resume = await updateResume(data);
+    const resume = await updateResume(data, locale);
     setIsLoading(false);
     if (!resume) {
-      toast.error("Failed to update your resume");
+      toast.error(t("save-error"));
       return;
     }
-    toast.success("Your resume has been updated");
+    toast.success(t("save-success"));
     router.refresh();
   };
 
@@ -63,7 +67,7 @@ function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
         <ExtracurricularsSection control={form.control} />
         <Separator className="my-6" />
         <Button type="button" onClick={form.handleSubmit(onSubmit)}>
-          {isLoading ? <LoaderCircleIcon className="animate-spin" /> : "Save"}
+          {isLoading ? <LoaderCircleIcon className="animate-spin" /> : t("save")}
         </Button>
       </form>
     </Form>

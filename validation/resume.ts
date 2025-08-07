@@ -1,68 +1,68 @@
 import { z } from "zod";
 
 export const resumeSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  linkedIn: z.string().url("Invalid LinkedIn URL").optional().or(z.literal('')),
-  github: z.string().url("Invalid GitHub URL").optional().or(z.literal('')),
-  phone: z.string().min(10, "Invalid phone number"),
-  location: z.string().min(1, "Location is required"),
-  summary: z.string().min(1, "Summary is required"),
+  name: z.string().min(1, "field-required"),
+  email: z.string().email("invalid-email").min(1, "field-required"),
+  linkedIn: z.string().url("invalid-link").optional().or(z.literal('')),
+  github: z.string().url("invalid-link").optional().or(z.literal('')),
+  phone: z.string().min(10, "invalid-phone"),
+  location: z.string().min(1, "field-required"),
+  summary: z.string().min(1, "field-required"),
   experience: z.array(
     z.object({
-      jobTitle: z.string().min(1, "Job title is required"),
-      company: z.string().min(1, "Company name is required"),
-      startDate: z.string().min(1, "Start date is required"),
+      jobTitle: z.string().min(1, "field-required"),
+      company: z.string().min(1, "field-required"),
+      startDate: z.string().min(1, "field-required"),
       endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
-      location: z.string().min(1, "Location is required"),
+      location: z.string().min(1, "field-required"),
       bulletPoints: z.array(z.object({
-        text: z.string().min(1, "Bullet point cannot be empty"),
-      })).min(1, "At least one bullet point is required"),
+        text: z.string().min(1, "field-required"),
+      })).min(1, "at-least-one-bullet-point"),
     })
   ),
   project: z.array(
     z.object({
-      name: z.string().min(1, "Project name is required"),
-      startDate: z.string().min(1, "Start date is required"),
+      name: z.string().min(1, "field-required"),
+      startDate: z.string().min(1, "field-required"),
       endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
       bulletPoints: z.array(z.object({
-        text: z.string().min(1, "Bullet point cannot be empty"),
-      })).min(1, "At least one bullet point is required"),
+        text: z.string().min(1, "field-required"),
+      })).min(1, "at-least-one-bullet-point"),
     })
   ),
   skills: z.array(z.object({
-    text: z.string().min(1, "Bullet point cannot be empty"),
-  })).min(1, "At least one bullet point is required"),
+    text: z.string().min(1, "field-required"),
+  })).min(1, "at-least-one-bullet-point"),
   education: z.array(
     z.object({
-      institution: z.string().min(1, "Institution is required"),
+      institution: z.string().min(1, "field-required"),
       location: z.string(),
-      degree: z.string().min(1, "Degree is required"),
+      degree: z.string().min(1, "field-required"),
       gpa: z.string().optional(),
-      startDate: z.string().min(1, "Start date is required"),
+      startDate: z.string().min(1, "field-required"),
       endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
     })
   ),
   certifications: z.array(
     z.object({
-      name: z.string().min(1, "Certification name is required"),
-      description: z.string().min(1, "Description is required"),
+      name: z.string().min(1, "field-required"),
+      description: z.string().min(1, "field-required"),
     })
   ),
   extracurriculars: z.array(
     z.object({
-      name: z.string().min(1, "Extra-curricular activity name is required"),
-      description: z.string().min(1, "Description is required"),
-      startDate: z.string().min(1, "Start date is required"),
+      name: z.string().min(1, "field-required"),
+      description: z.string().min(1, "field-required"),
+      startDate: z.string().min(1, "field-required"),
       endDate: z.string(),
       currentlyWorking: z.boolean().optional(),
-      location: z.string().min(1, "Location is required"),
+      location: z.string().min(1, "field-required"),
       bulletPoints: z.array(z.object({
-        text: z.string().min(1, "Bullet point cannot be empty"),
-      })).min(1, "At least one bullet point is required"),
+        text: z.string().min(1, "field-required"),
+      })).min(1, "at-least-one-bullet-point"),
     })
   ),
 })

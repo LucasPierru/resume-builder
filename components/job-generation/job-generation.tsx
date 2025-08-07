@@ -12,6 +12,7 @@ import { calculateATSScore } from "@/actions/ats";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 function JobGenerationForm({ balance, resume }: { balance: number; resume: Resume | null }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +23,7 @@ function JobGenerationForm({ balance, resume }: { balance: number; resume: Resum
       content: "",
     },
   });
+  const t = useTranslations("Generation");
 
   const parseResume = async (jobDescription: string, baseResume: string) => {
     setIsLoading(true);
@@ -35,11 +37,11 @@ function JobGenerationForm({ balance, resume }: { balance: number; resume: Resum
     });
 
     if (!res.ok) {
-      toast.error("Failed to parse resume");
+      toast.error(t("resume-generation-failed"));
       setIsLoading(false);
       return;
     }
-    toast.success("Resume parsed successfully");
+    toast.success(t("resume-generated"));
     setIsLoading(false);
     router.refresh();
     return res.json();
@@ -63,9 +65,9 @@ function JobGenerationForm({ balance, resume }: { balance: number; resume: Resum
           control={form.control}
           name={`content`}
           render={({ field }) => (
-            <FormItem className="flex items-center gap-2">
+            <FormItem className="gap-2">
               <FormControl>
-                <Textarea placeholder="Paste your job description here" className="h-52" {...field} />
+                <Textarea placeholder={t("job-description-placeholder")} className="h-52" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,13 +77,15 @@ function JobGenerationForm({ balance, resume }: { balance: number; resume: Resum
           <div className="flex gap-2">
             {balance <= lowCreditsBalance && <CircleAlertIcon className="text-destructive dark:text-destructive/60" />}
             <span className={`${balance <= lowCreditsBalance ? "text-destructive dark:text-destructive/60" : ""}`}>
-              {new Intl.NumberFormat("en-US", { style: "decimal" }).format(balance)} credits remaining
+              {new Intl.NumberFormat("en-US", { style: "decimal" }).format(balance)} {t("credits-remaining")}
             </span>
           </div>
-          <span>{form.watch("content").length} characters</span>
+          <span>
+            {form.watch("content").length} {t("characters")}
+          </span>
         </div>
         <Button className="mt-2 ml-auto" type="submit">
-          Generate Resume
+          {t("generate-resume")}
         </Button>
       </form>
     </Form>
