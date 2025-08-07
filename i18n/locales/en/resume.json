@@ -79,6 +79,7 @@
     "translate-error": "Failed to translate resume. Please try again.",
     "translate-success": "Resume translated successfully!",
     "no-resume-languages": "No resume languages available for translation.",
-    "translate-from": "Translate from"
+    "translate-from": "Translate from",
+    "present": "Present"
   }
 }

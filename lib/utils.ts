@@ -1,14 +1,20 @@
 import { Locale } from "@/types/types";
 import { clsx, type ClassValue } from "clsx";
 import { format, parseISO } from "date-fns";
+import { enUS, fr } from 'date-fns/locale';
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const formatDate = (date: string) => {
-  return date ? format(parseISO(date), "MMM yyyy") : "";
+const locales = {
+  en: enUS,
+  fr: fr,
+};
+
+export const formatDate = (date: string, locale: Locale) => {
+  return date ? format(parseISO(date), "MMM yyyy", { locale: locales[locale] }) : "";
 };
 
 export const languages = {

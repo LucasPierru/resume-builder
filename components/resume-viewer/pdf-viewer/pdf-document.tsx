@@ -1,8 +1,10 @@
 "use client";
 
 import { formatDate } from "@/lib/utils";
+import { Locale } from "@/types/types";
 import { Resume } from "@/validation/resume";
 import { Document, Page, Text, View, StyleSheet, Font, Link } from "@react-pdf/renderer";
+import { useLocale, useTranslations } from "next-intl";
 
 Font.register({
   family: "Times New Roman",
@@ -77,7 +79,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFDocument = ({ data }: { data: Resume }) => {
+type PDFDocumentProps = {
+  data: Resume;
+  t: ReturnType<typeof useTranslations>;
+  locale: Locale;
+};
+
+const PDFDocument = ({ data, t, locale }: PDFDocumentProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -104,17 +112,17 @@ const PDFDocument = ({ data }: { data: Resume }) => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Summary</Text>
+          <Text style={styles.heading}>{t("summary")}</Text>
           <Text>{data.summary}</Text>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Skills</Text>
+          <Text style={styles.heading}>{t("skills")}</Text>
           <Text>{data.skills.map((skill) => skill.text).join(", ")}</Text>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Work Experience</Text>
+          <Text style={styles.heading}>{t("work-experience")}</Text>
           {data.experience.map((exp, i) => (
             <View key={i}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
@@ -124,7 +132,8 @@ const PDFDocument = ({ data }: { data: Resume }) => {
                 </View>
                 <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
                   <Text style={styles.subheading}>
-                    {formatDate(exp.startDate)} - {exp.currentlyWorking ? "Present" : formatDate(exp.endDate)}
+                    {formatDate(exp.startDate, locale as Locale)} -{" "}
+                    {exp.currentlyWorking ? t("present") : formatDate(exp.endDate, locale as Locale)}
                   </Text>
                   <Text style={styles.location}>{exp.location}</Text>
                 </View>
@@ -140,13 +149,14 @@ const PDFDocument = ({ data }: { data: Resume }) => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Projects</Text>
+          <Text style={styles.heading}>{t("projects")}</Text>
           {data.project.map((proj, i) => (
             <View key={i} style={{ marginBottom: 4 }}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.projectName}>{proj.name}</Text>
                 <Text style={styles.subheading}>
-                  {formatDate(proj.startDate)} - {proj.currentlyWorking ? "Present" : formatDate(proj.endDate)}
+                  {formatDate(proj.startDate, locale as Locale)} -{" "}
+                  {proj.currentlyWorking ? t("present") : formatDate(proj.endDate, locale as Locale)}
                 </Text>
               </View>
               <View>
@@ -161,7 +171,7 @@ const PDFDocument = ({ data }: { data: Resume }) => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.heading}>Education</Text>
+          <Text style={styles.heading}>{t("education")}</Text>
           {data.education.map((edu, i) => (
             <View key={i} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 4 }}>
               <View>
@@ -170,9 +180,14 @@ const PDFDocument = ({ data }: { data: Resume }) => {
               </View>
               <View style={{ flexDirection: "column", alignItems: "flex-end" }}>
                 <Text style={styles.subheading}>
-                  {formatDate(edu.startDate)} - {edu.currentlyWorking ? "Present" : formatDate(edu.endDate)}
+                  {formatDate(edu.startDate, locale as Locale)} -{" "}
+                  {edu.currentlyWorking ? t("present") : formatDate(edu.endDate, locale as Locale)}
                 </Text>
-                {edu.gpa && <Text style={styles.location}>GPA: {edu.gpa}</Text>}
+                {edu.gpa && (
+                  <Text style={styles.location}>
+                    {t("gpa")}: {edu.gpa}
+                  </Text>
+                )}
               </View>
             </View>
           ))}

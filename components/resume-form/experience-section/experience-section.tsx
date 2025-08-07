@@ -14,7 +14,7 @@ import { parseISO } from "date-fns";
 import { useTranslations } from "next-intl";
 
 function ExperienceSection({ control }: { control: Control<Resume> }) {
-  const { fields, append, remove, move } = useFieldArray({
+  const { fields, append, remove, move, update } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "experience", // unique name for your Field Array
   });
@@ -81,34 +81,36 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
               </FormItem>
             )}
           />
-          <div className="w-full space-y-2">
-            <FormField
-              control={control}
-              name={`experience.${index}.endDate`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("end-date")}</FormLabel>
-                  <FormControl>
-                    <DatePicker
-                      selected={field.value ? new Date(parseISO(field.value)) : new Date()}
-                      onChange={(date) => {
-                        field.onChange(date ? date.toISOString() : "");
-                      }}
-                      minDate={new Date("1900-01-01")}
-                      maxDate={new Date()}
-                      dateFormat="MM/yyyy"
-                      showMonthYearPicker
-                      className={cn(
-                        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-                        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
-                      )}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="flex flex-col justify-center h-full w-full space-y-2">
+            {!fields[index].currentlyWorking && (
+              <FormField
+                control={control}
+                name={`experience.${index}.endDate`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("end-date")}</FormLabel>
+                    <FormControl>
+                      <DatePicker
+                        selected={field.value ? new Date(parseISO(field.value)) : new Date()}
+                        onChange={(date) => {
+                          field.onChange(date ? date.toISOString() : "");
+                        }}
+                        minDate={new Date("1900-01-01")}
+                        maxDate={new Date()}
+                        dateFormat="MM/yyyy"
+                        showMonthYearPicker
+                        className={cn(
+                          "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                          "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+                        )}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <FormField
               control={control}
               name={`experience.${index}.currentlyWorking`}
@@ -118,7 +120,10 @@ function ExperienceSection({ control }: { control: Control<Resume> }) {
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={(checked) => {
-                        field.onChange(checked);
+                        update(index, {
+                          ...fields[index],
+                          currentlyWorking: checked as boolean,
+                        });
                       }}
                     />
                   </FormControl>

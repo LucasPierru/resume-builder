@@ -6,7 +6,8 @@ import dynamic from "next/dynamic";
 import { Button } from "../ui/button";
 import { pdf } from "@react-pdf/renderer";
 import PDFDocument from "./pdf-viewer/pdf-document";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Locale } from "@/types/types";
 
 const PDFViewer = dynamic(() => import("./pdf-viewer/pdf-viewer"), {
   ssr: false,
@@ -15,13 +16,14 @@ const PDFViewer = dynamic(() => import("./pdf-viewer/pdf-viewer"), {
 export default function ResumeViewer({ data }: { data: Resume }) {
   const [showPreview, setShowPreview] = useState(false);
   const t = useTranslations("Resume");
+  const locale = useLocale() as Locale;
 
   const handleTogglePreview = () => {
     setShowPreview((prev) => !prev);
   };
 
   const handleDownload = async () => {
-    const blob = await pdf(<PDFDocument data={data} />).toBlob();
+    const blob = await pdf(<PDFDocument data={data} t={t} locale={locale} />).toBlob();
 
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

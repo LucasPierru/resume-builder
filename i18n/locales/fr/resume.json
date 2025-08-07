@@ -79,6 +79,7 @@
     "translate-error": "Échec de la traduction du CV. Veuillez réessayer.",
     "translate-success": "CV traduit avec succès !",
     "no-resume-languages": "Aucune langue de CV disponible pour la traduction.",
-    "translate-from": "Traduire du"
+    "translate-from": "Traduire du",
+    "present": "Présent"
   }
 }
