@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 function ProjectSection({ control }: { control: Control<Resume> }) {
   const { fields, append, remove, move, update } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "project", // unique name for your Field Array
+    name: "projects", // unique name for your Field Array
   });
   const t = useTranslations("Resume");
 
@@ -28,7 +28,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
           className="grid grid-cols-2 place-items-start item-stretch gap-y-2 gap-x-4 border border-border p-4 rounded-md">
           <FormField
             control={control}
-            name={`project.${index}.name`}
+            name={`projects.${index}.name`}
             render={({ field }) => (
               <FormItem className="col-span-2">
                 <FormLabel>{t("project-name")}</FormLabel>
@@ -41,7 +41,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
           />
           <FormField
             control={control}
-            name={`project.${index}.startDate`}
+            name={`projects.${index}.startDate`}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("start-date")}</FormLabel>
@@ -71,7 +71,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             {!fields[index].currentlyWorking && (
               <FormField
                 control={control}
-                name={`project.${index}.endDate`}
+                name={`projects.${index}.endDate`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t("end-date")}</FormLabel>
@@ -99,7 +99,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
             )}
             <FormField
               control={control}
-              name={`project.${index}.currentlyWorking`}
+              name={`projects.${index}.currentlyWorking`}
               render={({ field }) => (
                 <FormItem className="flex items-center gap-2">
                   <FormControl>

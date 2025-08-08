@@ -21,7 +21,7 @@ export const resumeSchema = z.object({
       })).min(1, "at-least-one-bullet-point"),
     })
   ),
-  project: z.array(
+  projects: z.array(
     z.object({
       name: z.string().min(1, "field-required"),
       startDate: z.string().min(1, "field-required"),

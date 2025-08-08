@@ -35,12 +35,12 @@ export default function ResumeViewer({ data }: { data: Resume }) {
 
   return (
     <div className="w-full my-4">
-      <Button className="mb-4" variant="outline" onClick={handleTogglePreview}>
+      <Button type="button" className="mb-4" variant="outline" onClick={handleTogglePreview}>
         {showPreview ? t("hide-preview") : t("show-preview")}
       </Button>
       <br />
       {showPreview && (
-        <Button className="mb-4" onClick={handleDownload}>
+        <Button type="button" className="mb-4" onClick={handleDownload}>
           {t("download-pdf")}
         </Button>
       )}

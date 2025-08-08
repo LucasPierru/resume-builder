@@ -20,8 +20,9 @@ import { Separator } from "../ui/separator";
 import { updateResume } from "@/requests/resume";
 import { useTranslations, useLocale } from "next-intl";
 import { Locale } from "@/types/types";
+import ResumeViewer from "../resume-viewer/resume-viewer";
 
-function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
+function ResumeForm({ defaultValues, canSubmit = true }: { defaultValues: Resume; canSubmit?: boolean }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const form = useForm<Resume>({
@@ -50,27 +51,32 @@ function ResumeForm({ defaultValues }: { defaultValues: Resume }) {
   }, [defaultValues, reset]);
 
   return (
-    <Form {...form}>
-      <form className="pb-8">
-        <InformationSection control={form.control} />
-        <Separator className="my-6" />
-        <ExperienceSection control={form.control} />
-        <Separator className="my-6" />
-        <ProjectSection control={form.control} />
-        <Separator className="my-6" />
-        <SkillsSection control={form.control} />
-        <Separator className="my-6" />
-        <EducationSection control={form.control} />
-        <Separator className="my-6" />
-        <CertificationSection control={form.control} />
-        <Separator className="my-6" />
-        <ExtracurricularsSection control={form.control} />
-        <Separator className="my-6" />
-        <Button type="button" onClick={form.handleSubmit(onSubmit)}>
-          {isLoading ? <LoaderCircleIcon className="animate-spin" /> : t("save")}
-        </Button>
-      </form>
-    </Form>
+    <div>
+      {form.watch() && <ResumeViewer data={form.watch()} />}
+      <Form {...form}>
+        <form className="pb-8">
+          <InformationSection control={form.control} />
+          <Separator className="my-6" />
+          <ExperienceSection control={form.control} />
+          <Separator className="my-6" />
+          <ProjectSection control={form.control} />
+          <Separator className="my-6" />
+          <SkillsSection control={form.control} />
+          <Separator className="my-6" />
+          <EducationSection control={form.control} />
+          <Separator className="my-6" />
+          <CertificationSection control={form.control} />
+          <Separator className="my-6" />
+          <ExtracurricularsSection control={form.control} />
+          <Separator className="my-6" />
+          {canSubmit && (
+            <Button type="button" onClick={form.handleSubmit(onSubmit)}>
+              {isLoading ? <LoaderCircleIcon className="animate-spin" /> : t("save")}
+            </Button>
+          )}
+        </form>
+      </Form>
+    </div>
   );
 }
 

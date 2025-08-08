@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const prompt = `
       You are a professional translator.
 
-      Translate the following resume from ${languages[originalLanguage as keyof typeof languages]} to ${languages[targetLanguage as keyof typeof languages]}. Keep the structure and field names exactly as they are. Only translate the values (like job titles, summaries, bullet points, degrees, etc). Do not translate field labels like "jobTitle", "skills", or "summary".
+      Translate the following resume from ${languages[originalLanguage as keyof typeof languages]} to ${languages[targetLanguage as keyof typeof languages]}. Keep the structure and field names exactly as they are. Only translate the values (like job titles, summaries, bullet points, degrees, etc). Do not translate field labels like "jobTitle", "skills", or "summary". Keep in mind, this is a resume and should be treated as such so use the appropriate grammar.
 
       Return only the translated JSON — no extra commentary.
 

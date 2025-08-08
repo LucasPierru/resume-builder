@@ -7,6 +7,7 @@
     "credits-remaining": "Credits Remaining",
     "resume-generated": "Resume generated successfully",
     "resume-generation-failed": "Failed to generate resume, please try again later",
-    "low-credits": "You have low credits, please add more to continue"
+    "low-credits": "You have low credits, please add more to continue",
+    "improvements": "Improvements"
   }
 }

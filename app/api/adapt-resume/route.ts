@@ -19,10 +19,13 @@ Your tasks:
 - Improve relevance, clarity, and alignment to the JD.
 - Do NOT add fictional or unrelated experience — only adapt the wording and highlights to align with the JD.
 
-Return a JSON object with:
+Return a valid JSON object with:
 - The updated resume (same schema as input)
 - A new field "improvements": a list of 4–5 plain text bullet points describing how the resume was adapted.
 - Do not include extra commentary, just the updated JSON.
+- Return the resume data in the job description's language. i.e. if the JD is in French, return the resume in French. regardless of the base resume's language.
+- The improvements should be in the base resume's language. i.e. if the base resume is in English, return the improvements in English. regardless of the job description's language.
+- DO NOT include triple backticks. DO NOT write anything outside the JSON.
 
 BASE RESUME JSON:
 ${JSON.stringify(baseResume)}
@@ -52,6 +55,7 @@ ${jobDescription}
   // Try to parse the updated JSON
   try {
     const updatedResume = JSON.parse(cleaned);
+    console.log("Updated resume:", updatedResume);
     return NextResponse.json({ updatedResume });
   } catch (error) {
     return NextResponse.json(

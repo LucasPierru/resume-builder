@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
         ]
       }
     ],
-    "project": [
+    "projects": [
       {
         "name": "",
         "startDate": "",

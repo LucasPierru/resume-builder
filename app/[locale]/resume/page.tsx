@@ -30,7 +30,7 @@ async function ResumePage({ params }: { params: Promise<{ locale: Locale }> }) {
     location: resume?.location || "",
     summary: resume?.summary || "",
     experience: resume?.experience || [],
-    project: resume?.project || [],
+    projects: resume?.projects || [],
     skills: resume?.skills || [],
     education: resume?.education || [],
     certifications: resume?.certifications || [],
@@ -42,7 +42,7 @@ async function ResumePage({ params }: { params: Promise<{ locale: Locale }> }) {
       <h1 className="text-foreground font-semibold text-2xl mb-4">{t("resume")}</h1>
       <ResumeParser balance={currentUser?.balance} resumeLanguages={resumeLanguages} />
       <Separator className="h-[1px] bg-border my-6" />
-      <ResumeViewer data={defaultValues} />
+      {/* <ResumeViewer data={defaultValues} /> */}
       <ResumeForm defaultValues={defaultValues} />
     </div>
   );

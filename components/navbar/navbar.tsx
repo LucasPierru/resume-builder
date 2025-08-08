@@ -22,7 +22,7 @@ async function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full flex items-center backdrop-blur justify-between h-14 border-b border-border">
+    <header className="fixed top-0 z-50 w-full bg-background/95 supports-[backdrop-filter]:bg-background/60 flex items-center backdrop-blur justify-between h-14 border-b border-border">
       <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
         <div>Builder</div>
         <nav className="flex space-x-4">

@@ -15,7 +15,7 @@ async function JobGenerationPage() {
 
   return (
     <div className="max-w-5xl mx-auto h-full pt-18 pb-4 px-4">
-      <h1 className="text-foreground font-semibold text-2xl mb-4">{t("job-description")}</h1>
+      <h1 className="text-foreground font-semibold text-4xl mb-4">{t("job-description")}</h1>
       <JobGenerationForm
         balance={currentUser.balance}
         resume={

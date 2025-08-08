@@ -150,7 +150,7 @@ const PDFDocument = ({ data, t, locale }: PDFDocumentProps) => {
 
         <View style={styles.section}>
           <Text style={styles.heading}>{t("projects")}</Text>
-          {data.project.map((proj, i) => (
+          {data.projects.map((proj, i) => (
             <View key={i} style={{ marginBottom: 4 }}>
               <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Text style={styles.projectName}>{proj.name}</Text>

@@ -34,7 +34,7 @@
     "confirm-password-too-short": "Confirm password is required",
     "password-mismatch": "Passwords do not match",
     "field-required": "This field is required",
-    "invalid-link": "Invalid URL",
+    "invalid-link": "Invalid URL, the format must start with http:// or https://",
     "invalid-phone": "Invalid phone number",
     "at-least-one-bullet-point": "At least one bullet point is required"
   }
