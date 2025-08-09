@@ -8,12 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { CircleAlertIcon, LoaderCircleIcon } from "lucide-react";
 import { Resume } from "@/validation/resume";
-import { calculateATSScore } from "@/actions/ats";
+//import { calculateATSScore } from "@/actions/ats";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import ResumeViewer from "../resume-viewer/resume-viewer";
 import ResumeForm from "../resume-form/resume-form";
 
 function JobGenerationForm({ balance, resume }: { balance: number; resume: Resume | null }) {
@@ -58,7 +57,7 @@ function JobGenerationForm({ balance, resume }: { balance: number; resume: Resum
   };
 
   const onSubmit = async (data: JobGeneration) => {
-    const { data: updatedResume, error } = await parseResume(data.content, resume ? JSON.stringify(resume) : "");
+    const { data: updatedResume } = await parseResume(data.content, resume ? JSON.stringify(resume) : "");
     console.log("Updated resume:", updatedResume);
     setImprovements(updatedResume?.improvements || []);
     setGeneratedResume(updatedResume);

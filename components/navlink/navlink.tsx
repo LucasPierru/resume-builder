@@ -9,7 +9,7 @@ function NavLink({ children, href }: { children: ReactNode; href: string }) {
   const locale = useLocale();
   const pathname = usePathname();
   return (
-    <Link className={`${pathname === `/${locale}${href}` ? "font-semibold" : ""}`} href={href}>
+    <Link className={`${pathname === `/${locale}${href === "/" ? "" : href}` ? "font-semibold" : ""}`} href={href}>
       {children}
     </Link>
   );

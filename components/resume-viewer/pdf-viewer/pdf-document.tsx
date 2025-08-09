@@ -4,7 +4,7 @@ import { formatDate } from "@/lib/utils";
 import { Locale } from "@/types/types";
 import { Resume } from "@/validation/resume";
 import { Document, Page, Text, View, StyleSheet, Font, Link } from "@react-pdf/renderer";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 Font.register({
   family: "Times New Roman",
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     padding: 30,
     fontSize: 10,
     fontFamily: "Times New Roman",
-    lineHeight: 1.4,
+    lineHeight: 1.3,
   },
   header: {
     alignItems: "center",
@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     marginLeft: 8,
-    marginBottom: 2,
+    marginBottom: 1,
+    //lineHeight: 0.75,
   },
 });
 
@@ -100,14 +101,22 @@ const PDFDocument = ({ data, t, locale }: PDFDocumentProps) => {
             <Link src={`tel:${data.phone}`} style={styles.small}>
               {data.phone}
             </Link>
-            <Text>|</Text>
-            <Link src={data.github} style={styles.link}>
-              {data.github?.split("https://").pop()}
-            </Link>
-            <Text>|</Text>
-            <Link src={data.linkedIn} style={styles.link}>
-              {data.linkedIn?.split("https://").pop()}
-            </Link>
+            {data.github && (
+              <>
+                <Text>|</Text>
+                <Link src={data.github} style={styles.link}>
+                  {data.github.split("https://").pop()}
+                </Link>
+              </>
+            )}
+            {data.linkedIn && (
+              <>
+                <Text>|</Text>
+                <Link src={data.linkedIn} style={styles.link}>
+                  {data.linkedIn.split("https://").pop()}
+                </Link>
+              </>
+            )}
           </View>
         </View>
 

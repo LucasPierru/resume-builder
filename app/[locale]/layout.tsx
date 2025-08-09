@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -31,13 +33,29 @@ export default async function RootLayout({
     notFound();
   }
 
+  setRequestLocale(locale);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased h-screen`}>
         <NextIntlClientProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Navbar />
-            {children}
+            <main>{children}</main>
+            <footer className="py-4 not-last:border-t border-border">
+              <div className="max-w-7xl mx-auto flex items-center justify-between">
+                <div className="flex space-x-4">
+                  <Link href="/privacy-policy">Privacy</Link>
+                  <Link href="/terms-of-service">Terms</Link>
+                  <Link href="/support">Feedback</Link>
+                </div>
+                <div className="">
+                  <p className="text-sm text-muted-foreground text-center">
+                    &copy; {new Date().getFullYear()} Adaptify
+                  </p>
+                </div>
+              </div>
+            </footer>
             <Toaster />
           </ThemeProvider>
         </NextIntlClientProvider>

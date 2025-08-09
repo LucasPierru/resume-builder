@@ -4,6 +4,7 @@ import { getResume, updateResume } from "@/requests/resume";
 import { Resume } from "@/validation/resume";
 import { revalidatePath } from "next/cache";
 import { languages } from "@/lib/utils";
+import { translateResumePrompt } from "@/prompts/translate-resume";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -12,16 +13,11 @@ export async function POST(req: Request) {
     const { originalLanguage, targetLanguage } = await req.json();
 
     const resume = await getResume(originalLanguage);
+    if (!resume) {
+      return NextResponse.json({ error: "no-resume-to-translate" }, { status: 404 });
+    }
 
-    const prompt = `
-      You are a professional translator.
-
-      Translate the following resume from ${languages[originalLanguage as keyof typeof languages]} to ${languages[targetLanguage as keyof typeof languages]}. Keep the structure and field names exactly as they are. Only translate the values (like job titles, summaries, bullet points, degrees, etc). Do not translate field labels like "jobTitle", "skills", or "summary". Keep in mind, this is a resume and should be treated as such so use the appropriate grammar.
-
-      Return only the translated JSON — no extra commentary.
-
-      BASE RESUME JSON:
-      ${JSON.stringify(resume)}`;
+    const prompt = translateResumePrompt(resume, languages[originalLanguage as keyof typeof languages], languages[targetLanguage as keyof typeof languages]);
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo", // or "gpt-3.5-turbo" if you're optimizing costs

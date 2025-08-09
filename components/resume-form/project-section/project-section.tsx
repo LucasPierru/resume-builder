@@ -119,7 +119,7 @@ function ProjectSection({ control }: { control: Control<Resume> }) {
               )}
             />
           </div>
-          <BulletPoints fieldIndex={index} control={control} section="project" />
+          <BulletPoints fieldIndex={index} control={control} section="projects" />
           <div>
             <Button
               type="button"

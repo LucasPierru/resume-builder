@@ -33,7 +33,7 @@ export const defaultMock: Resume = {
       ],
     },
   ],
-  project: [
+  projects: [
     {
       name: "Messaging application",
       startDate: "2025-06-01",
@@ -100,8 +100,7 @@ export const defaultMock: Resume = {
     {
       institution: "École de Technologie Supérieure",
       location: "Montréal, Qc",
-      degree: "Master’s",
-      fieldOfStudy: "Software Engineering",
+      degree: "Master’s in Software Engineering",
       startDate: "2025-05-01",
       endDate: "2028-05-01",
       currentlyWorking: true,
@@ -109,8 +108,7 @@ export const defaultMock: Resume = {
     {
       institution: "École de Technologie Supérieure",
       location: "Montréal, Qc",
-      degree: "Bachelor’s of Engineering",
-      fieldOfStudy: "Automated production",
+      degree: "Bachelor’s of Engineering in Automated production",
       startDate: "2018-09-01",
       endDate: "2022-05-01",
       currentlyWorking: false,

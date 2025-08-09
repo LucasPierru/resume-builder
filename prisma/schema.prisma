@@ -41,8 +41,15 @@ model Application {
   userId          String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt @default(now())
-  status          String   @default("draft") // draft, submitted, accepted, rejected
+  status          ApplicationStatus @default(APPLIED)
   feedback        String?  // optional feedback from employer
-  applicationDate DateTime @default(now())
   comments        String?
+}
+
+enum ApplicationStatus {
+  APPLIED
+  INTERVIEW
+  OFFER
+  REJECTED
+  ACCEPTED
 }

@@ -1,5 +1,4 @@
 import ResumeForm from "@/components/resume-form/resume-form";
-import ResumeViewer from "@/components/resume-viewer/resume-viewer";
 import React from "react";
 import ResumeParser from "@/components/resume-parser/resume-parser";
 import { getCurrentUser } from "@/requests/user";
@@ -38,13 +37,12 @@ async function ResumePage({ params }: { params: Promise<{ locale: Locale }> }) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto h-full pt-18 pb-4 px-4">
+    <main className="max-w-5xl mx-auto h-full pt-18 pb-4 px-4">
       <h1 className="text-foreground font-semibold text-2xl mb-4">{t("resume")}</h1>
       <ResumeParser balance={currentUser?.balance} resumeLanguages={resumeLanguages} />
       <Separator className="h-[1px] bg-border my-6" />
-      {/* <ResumeViewer data={defaultValues} /> */}
       <ResumeForm defaultValues={defaultValues} />
-    </div>
+    </main>
   );
 }
 

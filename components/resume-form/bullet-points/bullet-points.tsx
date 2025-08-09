@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 type BulletPointsProps = {
   fieldIndex: number;
   control: Control<Resume>;
-  section: "experience" | "project" | "extracurriculars";
+  section: "experience" | "projects" | "extracurriculars";
 };
 
 function BulletPoints({ fieldIndex, control, section }: BulletPointsProps) {

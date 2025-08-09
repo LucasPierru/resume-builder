@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
-import { getTranslateFromSentence, languages } from "@/lib/utils";
+import { getTranslateFromSentence } from "@/lib/utils";
 import { Locale } from "@/types/types";
 
 export default function ResumeParser({
@@ -32,7 +32,7 @@ export default function ResumeParser({
     setIsLoading(true);
     formData.append("file", file);
 
-    const res = await fetch("/api/parse-resume", {
+    const res = await fetch("/api/resume/upload", {
       method: "POST",
       body: formData,
     });
@@ -52,7 +52,7 @@ export default function ResumeParser({
     if (!rawText) return;
     setIsParsing(true);
 
-    const res = await fetch("/api/resume-form", {
+    const res = await fetch("/api/resume/parse", {
       method: "POST",
       body: JSON.stringify({ rawText, locale }),
       headers: {
@@ -80,7 +80,7 @@ export default function ResumeParser({
       return;
     }
 
-    const res = await fetch("/api/translate-resume", {
+    const res = await fetch("/api/resume/translate", {
       method: "POST",
       body: JSON.stringify({ originalLanguage: resumeLanguages[0], targetLanguage: locale }), // Adjust languages as needed
       headers: {

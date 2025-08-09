@@ -32,7 +32,7 @@ export async function calculateATSScore({
       resume.summary,
       ...resume.skills.map((s) => s.text),
       ...resume.experience.flatMap((e) => e.bulletPoints.map((b) => b.text)),
-      ...(resume.project?.flatMap((p) => p.bulletPoints.map((b) => b.text)) ??
+      ...(resume.projects?.flatMap((p) => p.bulletPoints.map((b) => b.text)) ??
         []),
       ...(resume.education?.flatMap((e) => e.degree) ?? []),
       ...(resume.certifications?.flatMap((c) => c.name) ?? []),

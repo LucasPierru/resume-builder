@@ -18,8 +18,8 @@ export const formatDate = (date: string, locale: Locale) => {
 };
 
 export const languages = {
-  en: "english",
-  fr: "french",
+  en: "English",
+  fr: "French",
 };
 
 export function getTranslateFromSentence(targetLang: Locale, sourceLang: Locale) {

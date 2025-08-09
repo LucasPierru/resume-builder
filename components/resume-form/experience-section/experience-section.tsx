@@ -5,7 +5,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { defaultExperience, Resume } from "@/validation/resume";
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, TrashIcon } from "lucide-react";
-import React, { use } from "react";
+import React from "react";
 import { Control, useFieldArray } from "react-hook-form";
 import BulletPoints from "../bullet-points/bullet-points";
 import { Checkbox } from "@/components/ui/checkbox";
